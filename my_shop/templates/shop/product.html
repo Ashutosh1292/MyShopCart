@@ -1,0 +1,76 @@
+{% extends 'shop/basic.html' %}
+{% block style %}
+<style>
+      .col-md-3
+      {
+      display: inline-block;
+      margin-left:-4px;
+      }
+      #carouselExampleIndicators {
+      background-color:white;
+      }
+      .col-md-3 img{
+      width: 250px;
+      height:250px;
+      }
+
+      .carousel-control-next-icon,
+      .carousel-control-prev-icon{
+        background-color:red;
+      }
+    </style>
+{% endblock  %}
+
+{% block content %}<br>
+<div class="container">
+{% for products , range in  prod_list %}
+
+  <h2>{{products.0.category}}</h2>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <!-- crousal Navigation -->
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    {% for i in range %}
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{i}}"></li>
+    {% endfor %}
+  </ol>
+<!-- Slideshow here -->
+  <div class="carousel-inner no-padding">
+    <div class="carousel-item active">
+      <!-- first card -->
+
+      <!-- second card -->
+      {% for j  in products %}
+      <div class="col-md-3">
+      <div class="card" style="width: 18rem;">
+      <img src="/media/{{j.image}}" class="card-img-top" alt="...">
+        <div class="card-body">
+        <h5 class="card-title">{{j.name}}</h5>
+        <p class="card-text">{{j.description}}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+       </div>
+      </div>
+      </div>
+      {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+      </div>
+      <div class="carousel-item ">
+      {% endif %}
+      {% endfor %}
+    </div>
+
+
+  </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+{% endfor %}
+
+</div>
+{{products}}
+{% endblock  %}
